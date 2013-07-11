@@ -1,0 +1,32 @@
+Source: jabberd2
+Section: net
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer:Jamin W. Collins <jcollins@asgardsrealm.net>
+Uploaders: Andres Salomon <dilinger@debian.org>
+Build-Depends: dpatch, libssl-dev (>= 0.9.6), libdb4.6-dev, debhelper (>> 4.0.0), libpq-dev, libmysqlclient15-dev, libpam0g-dev, libldap2-dev, libidn11-dev, libudns-dev
+Standards-Version: 3.6.1.0
+
+Package: jabberd2-mysql
+Architecture: any
+Depends: jabber-common, ${shlibs:Depends}
+Provides: jabberd2
+Conflicts: jabberd2-bdb, jabberd2-pgsql, jabberd2-ldap-bdb, jabberd2-ldap-mysql, jabberd2-ldap-pgsql, jabber
+Description: Jabber Open Source Instant Messenger Server (MySQL)
+ Jabber is a Free Instant Messaging Server
+ .
+ This package contains Jabberd 2, the next generation of the Jabberd 
+ server.  It has been rewritten from the ground up to be scalable,
+ architecturally sound, and to support the latest protocol extensions
+ coming out of the JSF.
+ . 
+ With additional transports and/or services, Jabber supports connecting 
+ to AIM, ICQ, IRC, MSN and a lot of other chat networks.  These
+ transports and services are provided in separate packages. 
+ .
+ Only one of the Jabber 2 packages is needed.  Each of the packages
+ provides support for the following authreg options: anon, pipe, and
+ pam.  This packages provides additional support for MySQL authreg
+ and storage.  
+ .
+ Upstream: http://jabberd.jabberstudio.org/

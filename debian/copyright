@@ -1,0 +1,47 @@
+This package was debianized by Jamin W. Collins <jcollins@asgardsrealm.net> on
+Thu,  8 May 2003 14:31:28 -0600.
+
+It was downloaded from http://www.jabberstudio.org/projects/jabberd2/releases
+
+Upstream Authors: 
+     Ryan Eatmon       <reatmon@jabber.org>
+     Jeremie Miller    <jeremie@jabber.org>
+     Thomas Muldowney  <temas@jabber.org>
+     Robert Norris     <rob@cataclysm.cx>
+
+This software is 
+   Copyright (c) 2002 Jeremie Miller, Thomas Muldowney,
+                      Ryan Eatmon, Robert Norris
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+   GNU General Public License for more details.
+  
+jabberd incorporates the 'GNU Libidn' package.
+Copyright (c) 2002, 2003 Simon Josefsson.
+
+   GNU Libidn is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Lesser General Public
+   License as published by the Free Software Foundation; either
+   version 2.1 of the License, or (at your option) any later version.
+  
+   GNU Libidn is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Lesser General Public License for more details.
+
+jabberd incorporates the 'Expat' package.
+Copyright (c) 1998, 1999, 2000 Thai Open Source Software Center Ltd
+                                and Clark Cooper
+ 
+The M4 macros in the ac-helpers/ directory were originally taken from
+the 'subversion' project. Originally copyright (c) 2002-2003 CollabNet.
+
+On Debian systems, the complete text of the GNU General Public
+License can be found in the file `/usr/share/common-licenses/GPL'.

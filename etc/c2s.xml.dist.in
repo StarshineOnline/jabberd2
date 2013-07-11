@@ -5,7 +5,7 @@
 
   <!-- The process ID file. Comment this out if you don't need to know
        the process ID from outside the process (eg for control scripts) -->
-  <pidfile>@localstatedir@/@package@/pid/c2s.pid</pidfile>
+  <pidfile>/var/run/jabberd2/c2s.pid</pidfile>
 
   <!-- Router connection configuration -->
   <router>
@@ -50,7 +50,7 @@
   </router>
 
   <!-- Log configuration - type is "syslog", "file" or "stdout" -->
-  <log type='syslog'>
+  <log type='file'>
     <!-- If logging to syslog, this is the log ident -->
     <ident>jabberd/c2s</ident>
 
@@ -60,7 +60,7 @@
 
     <!-- If logging to file, this is the filename of the logfile -->
     <!--
-    <file>@localstatedir@/@package@/log/c2s.log</file>
+    <file>/var/log/jabberd2/c2s.log</file>
     -->
 
     <!-- Filename of the debug logfile -->
@@ -370,7 +370,7 @@
     <path>@pkglibdir@</path>
 
     <!-- Backend module to use -->
-    <module>sqlite</module>
+    <module>mysql</module>
 
     <!-- Available authentication mechanisms -->
     <mechanisms>
@@ -519,7 +519,7 @@
     <!-- Berkeley DB module configuration -->
     <db>
       <!-- Directory to store database files under -->
-      <path>@localstatedir@/@package@/db</path>
+      <path>/var/lib/jabberd2/db</path>
 
       <!-- Synchronize the database to disk after each write. If you
            disable this, database accesses may be faster, but data may

@@ -1,0 +1,15 @@
+jabberd2 for Debian
+-------------------
+
+Thiss Package will configure itself to run with the hostname localhost. You
+can change this with the -h setting in /etc/jabber2/jabber.cfg (which will be
+sourced by /etc/init.d/jabber2.
+
+NOTE: the Default Configuration of this package will disable automatic
+version update.
+
+The Jabber Spool in this Version is recommended to be in
+/var/lib/jabber2/<servername> which can be overwritten with the -s option,
+which in turn can be set in /etc/jabber2/jabber.cfg
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>, Thu,  8 May 2003 14:31:28 -0600

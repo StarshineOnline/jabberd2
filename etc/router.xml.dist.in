@@ -5,10 +5,10 @@
 
   <!-- The process ID file. Comment this out if you don't need to know
        the process ID from outside the process (eg for control scripts) -->
-  <pidfile>@localstatedir@/@package@/pid/router.pid</pidfile>
+  <pidfile>/var/run/jabberd2/router.pid</pidfile>
 
   <!-- Log configuration - type is "syslog", "file" or "stdout" -->
-  <log type='syslog'>
+  <log type='file'>
     <!-- If logging to syslog, this is the log ident -->
     <ident>jabberd/router</ident>
 
@@ -17,9 +17,7 @@
     <facility>local3</facility>
 
     <!-- If logging to file, this is the filename of the logfile -->
-    <!--
-    <file>@localstatedir@/@package@/log/router.log</file>
-    -->
+    <file>/var/log/jabberd2/router.log</file>
 
     <!-- Filename of the debug logfile -->
     <!--
@@ -38,7 +36,7 @@
     <!-- File containing the user table. This is where the router gets
          its component and secret information from for component
          authentication.-->
-    <users>@sysconfdir@/router-users.xml</users>
+    <users>/etc/jabberd2/router-users.xml</users>
 
     <!-- Shared secret used to identify XEP-0114 components (that is,
          "jabber:component:accept" components that authenticate using

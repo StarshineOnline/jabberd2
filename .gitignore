@@ -45,3 +45,7 @@ tests/config/configtest
 docs/code
 /tests/check_config
 /tests/check_nad
+debian/jabberd2-mysql/
+debian/jabberd2-mysql.debhelper.log
+patch-stamp
+config-mysql

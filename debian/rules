@@ -1,0 +1,398 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+CONFIGURE = --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
+			--prefix=/usr --mandir=\$${prefix}/share/man --enable-debug \
+			--infodir=\$${prefix}/share/info --sysconfdir=/etc \
+			--bindir=\$${prefix}/sbin --localstatedir=/var \
+			--program-prefix=jabberd2- --disable-rpath \
+			--enable-anon --enable-pipe --enable-pam \
+			--enable-idn --enable-ssl --disable-fs
+
+include /usr/share/dpatch/dpatch.make
+PACKAGE = jabberd2
+
+CFLAGS = -Wall -g
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+config-bdb:
+	dh_testdir
+	ln -s docs $(CURDIR)/debian/jabberd2-bdb.docs
+	#ln -s dirs $(CURDIR)/debian/jabberd2-bdb.dirs
+	ln -s jabberd2.postrm $(CURDIR)/debian/jabberd2-bdb.postrm
+	ln -s jabberd2.postinst $(CURDIR)/debian/jabberd2-bdb.postinst
+	ln -s jabberd2.prerm $(CURDIR)/debian/jabberd2-bdb.prerm
+	ln -s jabberd2.preinst $(CURDIR)/debian/jabberd2-bdb.preinst
+	ln -s jabberd2.init $(CURDIR)/debian/jabberd2-bdb.init
+	./configure $(CONFIGURE) \
+		--disable-mysql --enable-db
+
+	touch config-bdb
+
+config-ldap-bdb:
+	dh_testdir
+	ln -s docs $(CURDIR)/debian/jabberd2-ldap-bdb.docs
+	ln -s jabberd2-bdb.dirs $(CURDIR)/debian/jabberd2-ldap-bdb.dirs
+	ln -s jabberd2.postrm $(CURDIR)/debian/jabberd2-ldap-bdb.postrm
+	ln -s jabberd2.postinst $(CURDIR)/debian/jabberd2-ldap-bdb.postinst
+	ln -s jabberd2.prerm $(CURDIR)/debian/jabberd2-ldap-bdb.prerm
+	ln -s jabberd2.preinst $(CURDIR)/debian/jabberd2-ldap-bdb.preinst
+	ln -s jabberd2.init $(CURDIR)/debian/jabberd2-ldap-bdb.init
+	./configure $(CONFIGURE) \
+		--disable-mysql --enable-ldap --enable-db
+		
+	touch config-ldap-bdb
+
+config-mysql:
+	dh_testdir
+	ln -s docs $(CURDIR)/debian/jabberd2-mysql.docs
+	ln -s dirs $(CURDIR)/debian/jabberd2-mysql.dirs
+	ln -s jabberd2.postrm $(CURDIR)/debian/jabberd2-mysql.postrm
+	ln -s jabberd2.postinst $(CURDIR)/debian/jabberd2-mysql.postinst
+	ln -s jabberd2.prerm $(CURDIR)/debian/jabberd2-mysql.prerm
+	ln -s jabberd2.preinst $(CURDIR)/debian/jabberd2-mysql.preinst
+	ln -s jabberd2.init $(CURDIR)/debian/jabberd2-mysql.init
+	./configure $(CONFIGURE) \
+		--enable-mysql
+	
+	touch config-mysql
+
+config-ldap-mysql:
+	dh_testdir
+	ln -s docs $(CURDIR)/debian/jabberd2-ldap-mysql.docs
+	ln -s dirs $(CURDIR)/debian/jabberd2-ldap-mysql.dirs
+	ln -s jabberd2.postrm $(CURDIR)/debian/jabberd2-ldap-mysql.postrm
+	ln -s jabberd2.postinst $(CURDIR)/debian/jabberd2-ldap-mysql.postinst
+	ln -s jabberd2.prerm $(CURDIR)/debian/jabberd2-ldap-mysql.prerm
+	ln -s jabberd2.preinst $(CURDIR)/debian/jabberd2-ldap-mysql.preinst
+	ln -s jabberd2.init $(CURDIR)/debian/jabberd2-ldap-mysql.init
+	./configure $(CONFIGURE) \
+	   --enable-ldap --enable-mysql
+	
+	touch config-ldap-mysql
+
+config-pgsql:
+	dh_testdir
+	ln -s docs $(CURDIR)/debian/jabberd2-pgsql.docs
+	ln -s dirs $(CURDIR)/debian/jabberd2-pgsql.dirs
+	ln -s jabberd2.postrm $(CURDIR)/debian/jabberd2-pgsql.postrm
+	ln -s jabberd2.postinst $(CURDIR)/debian/jabberd2-pgsql.postinst
+	ln -s jabberd2.prerm $(CURDIR)/debian/jabberd2-pgsql.prerm
+	ln -s jabberd2.preinst $(CURDIR)/debian/jabberd2-pgsql.preinst
+	ln -s jabberd2.init $(CURDIR)/debian/jabberd2-pgsql.init
+	./configure $(CONFIGURE) \
+		--disable-mysql --enable-pgsql \
+		--with-extra-include-path=/usr/include/postgresql/8.0
+		
+	touch config-pgsql
+
+config-ldap-pgsql:
+	dh_testdir
+	ln -s docs $(CURDIR)/debian/jabberd2-ldap-pgsql.docs
+	ln -s dirs $(CURDIR)/debian/jabberd2-ldap-pgsql.dirs
+	ln -s jabberd2.postrm $(CURDIR)/debian/jabberd2-ldap-pgsql.postrm
+	ln -s jabberd2.postinst $(CURDIR)/debian/jabberd2-ldap-pgsql.postinst
+	ln -s jabberd2.prerm $(CURDIR)/debian/jabberd2-ldap-pgsql.prerm
+	ln -s jabberd2.preinst $(CURDIR)/debian/jabberd2-ldap-pgsql.preinst
+	ln -s jabberd2.init $(CURDIR)/debian/jabberd2-ldap-pgsql.init
+	./configure $(CONFIGURE) \
+		--disable-mysql --enable-ldap --enable-pgsql \
+		--with-extra-include-path=/usr/include/postgresql/8.0
+	
+	touch config-ldap-pgsql
+
+build: build-mysql
+	touch build
+
+build-bdb: config-bdb patch-stamp
+	dh_testdir
+	dh_installdirs -p jabberd2-bdb
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/jabberd2-bdb
+	
+	# create needed directories
+	mkdir -p $(CURDIR)/debian/jabberd2-bdb/usr/share/doc/jabberd2-bdb/examples/
+	mkdir -p $(CURDIR)/debian/jabberd2-bdb/usr/share/doc/jabberd2-bdb/tools
+
+	# copy in useful tools
+	cp tools/pipe-auth.pl tools/migrate.pl \
+		$(CURDIR)/debian/jabberd2-bdb/usr/share/doc/jabberd2-bdb/tools
+	
+	# move .dist files and templates to docs
+	mv $(CURDIR)/debian/jabberd2-bdb/etc/jabberd/*.dist \
+		$(CURDIR)/debian/jabberd2-bdb/usr/share/doc/jabberd2-bdb/examples/
+	mv $(CURDIR)/debian/jabberd2-bdb/etc/jabberd/templates \
+		$(CURDIR)/debian/jabberd2-bdb/usr/share/doc/jabberd2-bdb/examples/
+	mv $(CURDIR)/debian/jabberd2-bdb/etc/jabberd/* \
+		$(CURDIR)/debian/jabberd2-bdb/etc/jabberd2/
+	rm -fr $(CURDIR)/debian/jabberd2-bdb/etc/jabberd/
+	
+	# remove the wrapper script and it's configuration
+	rm $(CURDIR)/debian/jabberd2-bdb/usr/sbin/jabberd2-jabberd
+	rm $(CURDIR)/debian/jabberd2-bdb/etc/jabberd2/jabberd.cfg
+	rm $(CURDIR)/debian/jabberd2-bdb/usr/share/doc/jabberd2-bdb/examples/jabberd.cfg.dist
+
+	touch build-bdb
+	
+build-ldap-bdb: config-ldap-bdb patch-stamp
+	dh_testdir
+	dh_installdirs -p jabberd2-ldap-bdb
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/jabberd2-ldap-bdb
+	
+	# create needed directories
+	mkdir -p $(CURDIR)/debian/jabberd2-ldap-bdb/usr/share/doc/jabberd2-ldap-bdb/examples/
+	mkdir -p $(CURDIR)/debian/jabberd2-ldap-bdb/usr/share/doc/jabberd2-ldap-bdb/tools
+
+	# copy in useful tools
+	cp tools/pipe-auth.pl tools/migrate.pl \
+		$(CURDIR)/debian/jabberd2-ldap-bdb/usr/share/doc/jabberd2-ldap-bdb/tools
+	
+	# move .dist files and templates to docs
+	mv $(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd/*.dist \
+		$(CURDIR)/debian/jabberd2-ldap-bdb/usr/share/doc/jabberd2-ldap-bdb/examples/
+	mv $(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd/templates \
+		$(CURDIR)/debian/jabberd2-ldap-bdb/usr/share/doc/jabberd2-ldap-bdb/examples/
+	mv $(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd/* \
+		$(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd2/
+	rm -fr $(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd/
+	
+	# remove the wrapper script and it's configuration
+	rm $(CURDIR)/debian/jabberd2-ldap-bdb/usr/sbin/jabberd2-jabberd
+	rm $(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd2/jabberd.cfg
+	rm $(CURDIR)/debian/jabberd2-ldap-bdb/usr/share/doc/jabberd2-ldap-bdb/examples/jabberd.cfg.dist
+
+	touch build-ldap-bdb
+	
+build-mysql: config-mysql patch-stamp
+	dh_testdir
+	dh_installdirs -p jabberd2-mysql
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/jabberd2-mysql
+	
+	# create needed directories
+	mkdir -p $(CURDIR)/debian/jabberd2-mysql/usr/share/doc/jabberd2-mysql/examples/
+	mkdir -p $(CURDIR)/debian/jabberd2-mysql/usr/share/doc/jabberd2-mysql/tools
+
+	# copy in useful tools
+	cp tools/pipe-auth.pl tools/migrate.pl tools/db-setup.mysql \
+		$(CURDIR)/debian/jabberd2-mysql/usr/share/doc/jabberd2-mysql/tools
+	
+	# move .dist files and templates to docs
+	mv $(CURDIR)/debian/jabberd2-mysql/etc/jabberd/*.dist \
+		$(CURDIR)/debian/jabberd2-mysql/usr/share/doc/jabberd2-mysql/examples/
+	mv $(CURDIR)/debian/jabberd2-mysql/etc/jabberd/templates \
+		$(CURDIR)/debian/jabberd2-mysql/usr/share/doc/jabberd2-mysql/examples/
+	mv $(CURDIR)/debian/jabberd2-mysql/etc/jabberd/* \
+		$(CURDIR)/debian/jabberd2-mysql/etc/jabberd2/
+	rm -fr $(CURDIR)/debian/jabberd2-mysql/etc/jabberd/
+	
+	# remove the wrapper script and it's configuration
+	rm $(CURDIR)/debian/jabberd2-mysql/usr/sbin/jabberd2-jabberd
+	rm $(CURDIR)/debian/jabberd2-mysql/etc/jabberd2/jabberd.cfg
+	rm $(CURDIR)/debian/jabberd2-mysql/usr/share/doc/jabberd2-mysql/examples/jabberd.cfg.dist
+
+	touch build-mysql
+	
+build-ldap-mysql: config-ldap-mysql patch-stamp
+	dh_testdir
+	dh_installdirs -p jabberd2-ldap-mysql
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/jabberd2-ldap-mysql
+	
+	# create needed directories
+	mkdir -p $(CURDIR)/debian/jabberd2-ldap-mysql/usr/share/doc/jabberd2-ldap-mysql/examples/
+	mkdir -p $(CURDIR)/debian/jabberd2-ldap-mysql/usr/share/doc/jabberd2-ldap-mysql/tools
+
+	# copy in useful tools
+	cp tools/pipe-auth.pl tools/migrate.pl tools/db-setup.mysql \
+		$(CURDIR)/debian/jabberd2-ldap-mysql/usr/share/doc/jabberd2-ldap-mysql/tools
+	
+	# move .dist files and templates to docs
+	mv $(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd/*.dist \
+		$(CURDIR)/debian/jabberd2-ldap-mysql/usr/share/doc/jabberd2-ldap-mysql/examples/
+	mv $(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd/templates \
+		$(CURDIR)/debian/jabberd2-ldap-mysql/usr/share/doc/jabberd2-ldap-mysql/examples/
+	mv $(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd/* \
+		$(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd2/
+	rm -fr $(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd/
+	
+	# remove the wrapper script and it's configuration
+	rm $(CURDIR)/debian/jabberd2-ldap-mysql/usr/sbin/jabberd2-jabberd
+	rm $(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd2/jabberd.cfg
+	rm $(CURDIR)/debian/jabberd2-ldap-mysql/usr/share/doc/jabberd2-ldap-mysql/examples/jabberd.cfg.dist
+
+	touch build-ldap-mysql
+	
+build-pgsql: config-pgsql patch-stamp
+	dh_testdir
+	dh_installdirs -p jabberd2-pgsql
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/jabberd2-pgsql
+	
+	# create needed directories
+	mkdir -p $(CURDIR)/debian/jabberd2-pgsql/usr/share/doc/jabberd2-pgsql/examples/
+	mkdir -p $(CURDIR)/debian/jabberd2-pgsql/usr/share/doc/jabberd2-pgsql/tools
+
+	# copy in useful tools
+	cp tools/pipe-auth.pl tools/migrate.pl tools/db-setup.pgsql \
+		$(CURDIR)/debian/jabberd2-pgsql/usr/share/doc/jabberd2-pgsql/tools
+	
+	# move .dist files and templates to docs
+	mv $(CURDIR)/debian/jabberd2-pgsql/etc/jabberd/*.dist \
+		$(CURDIR)/debian/jabberd2-pgsql/usr/share/doc/jabberd2-pgsql/examples/
+	mv $(CURDIR)/debian/jabberd2-pgsql/etc/jabberd/templates \
+		$(CURDIR)/debian/jabberd2-pgsql/usr/share/doc/jabberd2-pgsql/examples/
+	mv $(CURDIR)/debian/jabberd2-pgsql/etc/jabberd/* \
+		$(CURDIR)/debian/jabberd2-pgsql/etc/jabberd2/
+	rm -fr $(CURDIR)/debian/jabberd2-pgsql/etc/jabberd/
+	
+	# remove the wrapper script and it's configuration
+	rm $(CURDIR)/debian/jabberd2-pgsql/usr/sbin/jabberd2-jabberd
+	rm $(CURDIR)/debian/jabberd2-pgsql/etc/jabberd2/jabberd.cfg
+	rm $(CURDIR)/debian/jabberd2-pgsql/usr/share/doc/jabberd2-pgsql/examples/jabberd.cfg.dist
+
+	touch build-pgsql
+
+build-ldap-pgsql: config-ldap-pgsql patch-stamp
+	dh_testdir
+	dh_installdirs -p jabberd2-ldap-pgsql
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/jabberd2-ldap-pgsql
+	
+	# create needed directories
+	mkdir -p $(CURDIR)/debian/jabberd2-ldap-pgsql/usr/share/doc/jabberd2-ldap-pgsql/examples/
+	mkdir -p $(CURDIR)/debian/jabberd2-ldap-pgsql/usr/share/doc/jabberd2-ldap-pgsql/tools
+
+	# copy in useful tools
+	cp tools/pipe-auth.pl tools/migrate.pl tools/db-setup.pgsql \
+		$(CURDIR)/debian/jabberd2-ldap-pgsql/usr/share/doc/jabberd2-ldap-pgsql/tools
+	
+	# move .dist files and templates to docs
+	mv $(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd/*.dist \
+		$(CURDIR)/debian/jabberd2-ldap-pgsql/usr/share/doc/jabberd2-ldap-pgsql/examples/
+	mv $(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd/templates \
+		$(CURDIR)/debian/jabberd2-ldap-pgsql/usr/share/doc/jabberd2-ldap-pgsql/examples/
+	mv $(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd/* \
+		$(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd2/
+	rm -fr $(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd/
+	
+	# remove the wrapper script and it's configuration
+	rm $(CURDIR)/debian/jabberd2-ldap-pgsql/usr/sbin/jabberd2-jabberd
+	rm $(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd2/jabberd.cfg
+	rm $(CURDIR)/debian/jabberd2-ldap-pgsql/usr/share/doc/jabberd2-ldap-pgsql/examples/jabberd.cfg.dist
+
+	touch build-ldap-pgsql
+	
+clean: unpatch
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp 
+
+	# Add here commands to clean up after the build process.
+	-$(MAKE) distclean
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+
+	rm -f build
+	rm -f build-*
+	rm -f config-*
+	# remove all created symlinks
+	rm -f `find debian/ -type l`
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k -Xjabberd2
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+	
+	# install component.d scripts
+	install -o root -g root -m 0755 debian/component.d/* \
+		$(CURDIR)/debian/jabberd2-bdb/etc/jabberd2/component.d
+	install -o root -g root -m 0755 debian/component.d/* \
+		$(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd2/component.d
+	install -o root -g root -m 0755 debian/component.d/* \
+		$(CURDIR)/debian/jabberd2-mysql/etc/jabberd2/component.d
+	install -o root -g root -m 0755 debian/component.d/* \
+		$(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd2/component.d
+	install -o root -g root -m 0755 debian/component.d/* \
+		$(CURDIR)/debian/jabberd2-pgsql/etc/jabberd2/component.d
+	install -o root -g root -m 0755 debian/component.d/* \
+		$(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd2/component.d
+
+	# move the sm.xml config to sm.d/
+	#mv $(CURDIR)/debian/jabberd2-bdb/etc/jabberd2/sm.xml \
+	#	$(CURDIR)/debian/jabberd2-bdb/etc/jabberd2/sm.d
+	#mv $(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd2/sm.xml \
+	#	$(CURDIR)/debian/jabberd2-ldap-bdb/etc/jabberd2/sm.d
+	#mv $(CURDIR)/debian/jabberd2-mysql/etc/jabberd2/sm.xml \
+	#	$(CURDIR)/debian/jabberd2-mysql/etc/jabberd2/sm.d
+	#mv $(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd2/sm.xml \
+	#	$(CURDIR)/debian/jabberd2-ldap-mysql/etc/jabberd2/sm.d
+	#mv $(CURDIR)/debian/jabberd2-pgsql/etc/jabberd2/sm.xml \
+	#	$(CURDIR)/debian/jabberd2-pgsql/etc/jabberd2/sm.d
+	#mv $(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd2/sm.xml \
+	#	$(CURDIR)/debian/jabberd2-ldap-pgsql/etc/jabberd2/sm.d
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs ChangeLog
+	dh_installdocs
+	dh_installexamples
+#	dh_install
+#	dh_installmenu
+#	dh_installdebconf	
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+	dh_installinit -u"defaults 25 15"
+#	dh_installcron
+#	dh_installinfo
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+#	dh_perl
+#	dh_python
+#	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+UPSTREAM_VERSION = 2.0s6
+UPSTREAM_URL_BASE = http://www.jabberstudio.org/projects/jabberd2/releases/download.php?file=
+UPSTREAM_PKG = jabberd-$(UPSTREAM_VERSION).tar.gz
+UPSTREAM_URL = $(UPSTREAM_URL_BASE)$(UPSTREAM_PKG)
+DEBIAN_ORIG_PKG = jabberd2_$(UPSTREAM_VERSION).orig.tar.gz
+get-orig-source:
+	wget $(UPSTREAM_URL)
+	mv $(UPSTREAM_PKG) $(DEBIAN_ORIG_PKG)
+	
+binary: binary-indep binary-arch
+.PHONY: clean binary-indep binary-arch binary install unpatch

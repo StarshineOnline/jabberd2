@@ -1,0 +1,166 @@
+jabberd2 (2.2+sso) stable; urgency=low
+
+  * Use upstream source
+
+ -- Bastien Durel <bastien@durel.org>  Thu, 11 Jul 2013 11:04:43 +0200
+
+jabberd2 (2.0s11-3+sso) stable; urgency=low
+
+  * Add rewrite auth for 'SSO'
+
+ -- Bastien Durel <bastien@durel.org>  Wed, 10 Jul 2013 15:24:11 +0200
+
+jabberd2 (2.0s11-2+sso) stable; urgency=low
+
+  * Add new auth for 'joueur'
+
+ -- Bastien Durel <bastien@durel.org>  Tue, 09 Jul 2013 21:29:57 +0200
+
+jabberd2 (2.0s11-1ubuntu4.1) hardy-security; urgency=low
+
+  * SECURITY UPDATE: fix DoS via "billion laughs" attack
+    - debian/patches/CVE-2011-1755.dpatch: prevent internal entity expansion
+    - CVE-2011-1755
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Tue, 03 May 2011 20:12:11 -0500
+
+jabberd2 (2.0s11-1ubuntu4) hardy; urgency=low
+
+  * Rebuild adainst libdb4.6 (LP: #187448) 
+
+ -- Nicolas Valcárcel <nvalcarcel@ubuntu-pe.org>  Wed, 30 Jan 2008 17:57:58 -0500
+
+jabberd2 (2.0s11-1ubuntu3) hardy; urgency=low
+
+  * Rebuild against libldap2.4-2
+
+ -- Emmet Hikory <persia@ubuntu.com>  Thu, 24 Jan 2008 21:56:43 +0900
+
+jabberd2 (2.0s11-1ubuntu2) gutsy; urgency=low
+
+  * debian/jabberd2.init: correct typo in pid directory creation
+      (LP: #147157)
+  * really modify Maintainer value to match Debian-Maintainer-Field Spec
+
+ -- Lionel Porcheron <lionel.porcheron@ubuntu.com>  Mon, 08 Oct 2007 00:53:24 +0200
+
+jabberd2 (2.0s11-1ubuntu1) gutsy; urgency=low
+
+  * now use Debian package in experimental (LP: #119545)
+  * debian/control: change postresql-dev in libpq-dev in build depends
+  * debian/control: adding Conflicts to jabber package
+  * debian/jabberd2.init: create /var/run/jabber directory with correct 
+    permissions
+  * Modify Maintainer value to match Debian-Maintainer-Field Spec
+
+ -- Lionel Porcheron <lionel.porcheron@ubuntu.com>  Mon, 25 Jun 2007 16:41:27 +0200
+
+jabberd2 (2.0s11-1) experimental; urgency=low
+
+  * New upstream release (closes: #357874).
+  * Add myself to the uploaders list.
+  * Ack NMU (thanks Clément).
+
+ -- Andres Salomon <dilinger@debian.org>  Fri, 16 Jun 2006 01:58:46 +0000
+
+jabberd2 (2.0s10-1.1) experimental; urgency=high
+
+  * Non-maintainer upload
+  * Fix mysql library dependency (Closes:#358642)
+
+ -- Clément Stenac <zorglub@videolan.org>  Sat, 10 Jun 2006 14:00:00 +0200
+
+jabberd2 (2.0s10-1) experimental; urgency=low
+
+  * new upstream version
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Fri,  7 Oct 2005 09:47:16 -0600
+
+jabberd2 (2.0s9-1) experimental; urgency=low
+
+  * new upstream release (Closes: #305024)
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Fri, 19 Aug 2005 08:44:10 -0600
+
+jabberd2 (2.0s8-1) experimental; urgency=low
+
+  * new upstream release (Closes: #305024)
+  * SSL connections to non-SSL ports no longer crash c2s (Closes: #245306)
+   - not sure at what point this was corrected, but current testing
+     shows that it no longer appears to be a problem.
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Thu, 21 Apr 2005 13:07:15 -0600
+
+jabberd2 (2.0s6-1) experimental; urgency=low
+
+  * new upstream release
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Sat,  1 Jan 2005 12:54:22 -0700
+
+jabberd2 (2.0s4-2) experimental; urgency=low
+
+  * added patch to correct mysql and pgsql buffer overflow (Closes: #283189) 
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Fri, 26 Nov 2004 23:58:22 -0700
+
+jabberd2 (2.0s4-1) experimental; urgency=low
+
+  * New upstream version (Closes: #279922, #275976)
+  * Upstream exception added for OpenSSL (Closes: #237303)
+  * updated default start/stop sequence to start after and
+      stop before mysql/pgsql (Closes: #250886)
+  * built packages offering ldap option (Closes: #256382, #279478)
+  * corrected typo referencing MSM instead of MSN in long descriptions
+  * added dependency on jabber-common
+  * components now run as jabber:adm (Closes: #245260)
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Sat,  6 Nov 2004 14:59:13 -0700
+
+jabberd2 (2.0s2-2) experimental; urgency=low
+
+  * Added pam support to all versions
+  * updated long descriptions
+  * remove /var/lib/jabberd2/* from non bdb packages
+  * added /etc/jabbard2/sm.d directory to ease vhosting
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Fri, 12 Mar 2004 11:26:25 -0700
+
+jabberd2 (2.0s2-1) experimental; urgency=low
+
+  * New upstream version
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Mon,  1 Mar 2004 20:53:07 -0700
+
+jabberd2 (2.0s1-1) unstable; urgency=low
+
+  * First upstream stable release 
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Sat,  3 Jan 2004 12:56:59 -0700
+
+jabberd2 (1+2.0.0-b3-1) unstable; urgency=low
+
+  * new upstream version
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Mon,  3 Nov 2003 23:49:00 -0700
+
+jabberd2 (1+2.0.0-a6-2) unstable; urgency=low
+
+  * removed libsasl2-dev build depends
+  * added option to init script for individual component stop/start
+  * added check for daemon binary to each component script
+  * added check for already running daemon to each component script
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Tue, 19 Aug 2003 22:31:26 -0600
+
+jabberd2 (1+2.0.0-a6-1) unstable; urgency=low
+
+  * new upstream version 
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Fri,  8 Aug 2003 14:21:01 -0600
+
+jabberd2 (1+2.0.0-a4-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jamin W. Collins <jcollins@asgardsrealm.net>  Thu,  8 May 2003 14:31:28 -0600
+
